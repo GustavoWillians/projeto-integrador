@@ -1,0 +1,135 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4267b2;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo img{
+    width: 30%;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.welcome-message {
+    background-color: #f8d7da; /* Cor de fundo vermelha */
+    color: #721c24; /* Cor do texto vermelha escura */
+    padding: 10px; /* Espaçamento interno */
+    text-align: center; /* Alinhamento do texto ao centro */
+    margin-bottom: 20px; /* Espaçamento inferior */
+}
+
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-section,
+.feed-section {
+    margin-bottom: 20px;
+}
+
+.post-section input[type="text"],
+.post-section textarea,
+.post-section input[type="file"],
+.post-section button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.post-section button {
+    background-color: #4267b2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.post-section button:hover {
+    background-color: #365899;
+}
+
+.feed-section .post {
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.feed-section .post img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.feed-section .post .post-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.feed-section .post .post-address {
+    font-style: italic;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+/* Evitar redundância de estilos */
+header nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+}
+
+header nav ul li button {
+    background-color: #4267b2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+header nav ul li button:hover {
+    background-color: #365899;
+}
+

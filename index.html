@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.O.S RIO GRANDE DO SUL</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <script src="/JS/api.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><img src="/Assets/Logo.png" alt="Logo"></div>
+        <nav>
+            <ul>
+                <li><a href="https://defesacivil.rs.gov.br/inicial" target="_blank"><button type="button">DEFESA CIVIL</button></a></li>
+                <li><a href="https://www.pc.rs.gov.br/inicial" target="_blank"><button type="button">POLICIA CIVIL</button></a></li>
+                <li><a href="https://sosenchentes.rs.gov.br/inicial" target="_blank"><button type="button">CORPO DE BOMBEIROS</button></a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="welcome-message">
+        <p>Bem-vindo ao portal de auxílio para pessoas em situação de risco no Estado do Rio Grande do Sul durante este evento extremo que assola nosso estado. É importante que você utilize este espaço com humanidade e seriedade, contribuindo da melhor forma possível. Todas as postagens são visíveis para todos os usuários, incluindo a Defesa Civil e outros órgãos responsáveis pela organização de resgates e outras formas de ajuda. Juntos, podemos fazer a diferença e ajudar quem mais precisa.</p>
+    </div>
+    
+    <main>
+        <section class="post-section">
+            <h2>Poste uma Publicação</h2>
+            <form id="postForm">
+                <input type="text" id="userName" placeholder="Seu nome" required>
+                <textarea id="postContent" placeholder="No que você está pensando?" required></textarea>
+                <input type="file" id="postImage" accept="image/*">
+                <input type="text" id="cep" placeholder="CEP" required>
+                <input type="text" id="address" placeholder="Endereço" required readonly>
+                <input type="text" id="houseNumber" placeholder="Número da casa" required>
+                <button type="submit">Publicar</button>
+            </form>
+        </section>
+
+        <section class="search-section">
+            <input type="text" id="searchInput" placeholder="Pesquisar postagens...">
+            <button id="searchButton">Pesquisar</button>
+        </section>
+        <section class="feed-section">
+            <h2>Feed de Publicações</h2>
+            <div id="postFeed"></div>
+        </section>
+    </main>
+
+
+<!--Desenvolvido por Gustavo Willians, Diogo Fonseca, Gabriel Gomes, Felipe Fontenele, Leonardo Vinicius e Henrique Mota.-->
+
+</body>
+</html>
