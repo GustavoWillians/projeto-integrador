@@ -3,8 +3,12 @@ function savePostToStorage(userName, postContent, userAddress, houseNumber, imag
     // Obter as postagens já existentes ou inicializar uma array vazia se não houver
     const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
 
-    // Criar um novo objeto de postagem
+    // Gerar um ID único para a postagem
+    const postId = Date.now(); // Você pode usar outra lógica para gerar IDs únicos se preferir
+
+    // Criar um novo objeto de postagem com ID único
     const newPost = {
+        id: postId,
         userName: userName,
         postContent: postContent,
         userAddress: userAddress,
@@ -22,7 +26,7 @@ function savePostToStorage(userName, postContent, userAddress, houseNumber, imag
         newPost.imageUrl = imageUrl;
 
         // Salvar a imagem no localStorage usando a URL temporária
-        localStorage.setItem(`image_${userName}_${Date.now()}`, imageUrl);
+        localStorage.setItem(`image_${postId}`, imageUrl);
     }
 
     // Adicionar a nova postagem à array de postagens
@@ -44,6 +48,7 @@ function loadPostsFromStorage() {
     existingPosts.forEach(post => {
         const newPost = document.createElement('div');
         newPost.classList.add('post');
+        newPost.dataset.id = post.id; // Adicionar o ID da postagem ao dataset
 
         const postAuthor = document.createElement('p');
         postAuthor.classList.add('post-author');
@@ -64,14 +69,13 @@ function loadPostsFromStorage() {
             img.src = post.imageUrl;
             newPost.appendChild(img);
         }
-
         // Adiciona a sessão de comentários
         addCommentsSection(newPost, post.comments);
 
-        // Adiciona a postagem ao feed
         postFeed.appendChild(newPost);
     });
 }
+
 
 // Função para adicionar uma seção de comentários a uma postagem
 function addCommentsSection(postElement, comments) {
@@ -174,3 +178,169 @@ document.getElementById('postForm').addEventListener('submit', function(e) {
 
 // Chamar a função para carregar as postagens ao carregar a página
 document.addEventListener('DOMContentLoaded', loadPostsFromStorage);
+
+// Chamar a função de login e cadastro.
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(user => user.email === email && user.password === password);
+        if (user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            alert('Login bem-sucedido!');
+            checkAuthentication(); // Verificar autenticação após o login
+        } else {
+            alert('Email ou senha inválidos.');
+        }
+    });
+
+    signupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('signupEmail').value;
+        const name = document.getElementById('signupName').value;
+        const password = document.getElementById('signupPassword').value;
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.push({ email, name, password });
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Cadastro realizado com sucesso!');
+    });
+
+
+});
+
+// Chamar a função para fazer o botão de login e cadastro aparecer e sumir perante ao clique.
+document.addEventListener('DOMContentLoaded', function() {
+    const loginButton = document.getElementById('loginButton');
+    const signupButton = document.getElementById('signupButton');
+    
+    const loginPopup = document.getElementById('loginPopup');
+    const signupPopup = document.getElementById('signupPopup');
+    
+    let loginPopupVisible = false;
+    let signupPopupVisible = false;
+
+    loginButton.addEventListener('click', function() {
+        if (loginPopupVisible) {
+            loginPopup.style.display = 'none';
+            loginPopupVisible = false;
+        } else {
+            loginPopup.style.display = 'block';
+            signupPopup.style.display = 'none'; 
+            loginPopupVisible = true;
+            signupPopupVisible = false;
+        }
+    });
+    
+    signupButton.addEventListener('click', function() {
+        if (signupPopupVisible) {
+            signupPopup.style.display = 'none';
+            signupPopupVisible = false;
+        } else {
+            signupPopup.style.display = 'block';
+            loginPopup.style.display = 'none'; 
+            signupPopupVisible = true;
+            loginPopupVisible = false;
+        }
+    });
+});
+
+function loadPostsFromStorage() {
+    const postFeed = document.getElementById('postFeed');
+    const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
+
+    // Limpar o feed de postagens antes de adicionar as novas postagens
+    postFeed.innerHTML = '';
+
+    // Iterar sobre as postagens e adicionar cada uma ao feed
+    existingPosts.forEach(post => {
+        const newPost = document.createElement('div');
+        newPost.classList.add('post');
+        newPost.dataset.id = post.id; // Adicionar o ID da postagem ao dataset
+
+        const postAuthor = document.createElement('p');
+        postAuthor.classList.add('post-author');
+        postAuthor.textContent = `Nome: ${post.userName}`;
+        newPost.appendChild(postAuthor);
+
+        const postAddress = document.createElement('p');
+        postAddress.classList.add('post-address');
+        postAddress.textContent = `Endereço: ${post.userAddress}, Nº: ${post.houseNumber}`;
+        newPost.appendChild(postAddress);
+
+        const postText = document.createElement('p');
+        postText.textContent = post.postContent;
+        newPost.appendChild(postText);
+
+        if (post.imageUrl) {
+            const img = document.createElement('img');
+            img.src = post.imageUrl;
+            newPost.appendChild(img);
+        }
+        // Adiciona a sessão de comentários
+        addCommentsSection(newPost, post.comments);
+
+        // Adiciona os botões de editar e excluir
+        if (isLoggedIn()) {
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
+            editButton.classList.add('edit-button');
+            editButton.addEventListener('click', () => {
+                const postId = newPost.dataset.id;
+                const postContent = postText.textContent;
+                const newPostContent = prompt('Edite o conteúdo da postagem:', postContent);
+                if (newPostContent !== null) {
+                    editPost(postId, newPostContent);
+                }
+            });
+            newPost.appendChild(editButton);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Excluir';
+            deleteButton.classList.add('delete-button');
+            deleteButton.addEventListener('click', () => {
+                const postId = newPost.dataset.id;
+                if (confirm('Tem certeza de que deseja excluir esta postagem?')) {
+                    deletePost(postId);
+                }
+            });
+            newPost.appendChild(deleteButton);
+        }
+
+        postFeed.appendChild(newPost);
+    });
+}
+
+function isLoggedIn() {
+    return localStorage.getItem('currentUser') !== null;
+}
+
+function editPost(postId, newContent) {
+    const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    const postIndex = existingPosts.findIndex(post => post.id === parseInt(postId));
+    if (postIndex !== -1) {
+        existingPosts[postIndex].postContent = newContent;
+        localStorage.setItem('posts', JSON.stringify(existingPosts));
+        loadPostsFromStorage(); // Recarregar as postagens após a edição
+        alert('Postagem editada com sucesso!');
+    } else {
+        console.error('Postagem não encontrada.');
+    }
+}
+
+function deletePost(postId) {
+    const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    const postIndex = existingPosts.findIndex(post => post.id === parseInt(postId));
+    if (postIndex !== -1) {
+        existingPosts.splice(postIndex, 1);
+        localStorage.setItem('posts', JSON.stringify(existingPosts));
+        loadPostsFromStorage(); // Recarregar as postagens após a exclusão
+        alert('Postagem excluída com sucesso!');
+    } else {
+        console.error('Postagem não encontrada.');
+    }
+}

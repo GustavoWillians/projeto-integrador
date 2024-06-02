@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S.O.S RIO GRANDE DO SUL</title>
     <link rel="stylesheet" href="./CSS/style.css">
     <script src="./JS/api.js" defer></script>
-    <script src="./JS/storage.js" defer ></script>
+    <script src="./JS/storage.js" defer></script>
 
 </head>
+
 <body>
 
     <header>
@@ -20,12 +22,41 @@
                 <li><a href="https://sosenchentes.rs.gov.br/inicial" target="_blank"><button type="button">CORPO DE BOMBEIROS</button></a></li>
             </ul>
         </nav>
+        <div class="user-options">
+            <button id="loginButton">Login</button>
+            <button id="signupButton">Cadastro</button>
+
+            <div id="loginPopup" class="popup">
+                <form id="loginForm">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <input type="password" id="loginPassword" placeholder="Senha" required>
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+            
+            <div id="signupPopup" class="popup">
+                <form id="signupForm">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <input type="text" id="signupName" placeholder="Nome" required>
+                    <input type="password" id="signupPassword" placeholder="Senha" required>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
     </header>
+
     
+
+    </header>
+
     <div class="welcome-message">
-        <p>Bem-vindo ao portal de auxílio para pessoas em situação de risco no Estado do Rio Grande do Sul durante este evento extremo que assola nosso estado. É importante que você utilize este espaço com humanidade e seriedade, contribuindo da melhor forma possível. Todas as postagens são visíveis para todos os usuários, incluindo a Defesa Civil e outros órgãos responsáveis pela organização de resgates e outras formas de ajuda. Juntos, podemos fazer a diferença e ajudar quem mais precisa.</p>
+        <p>Bem-vindo ao portal de auxílio para pessoas em situação de risco no Estado do Rio Grande do Sul durante este
+            evento extremo que assola nosso estado. É importante que você utilize este espaço com humanidade e
+            seriedade, contribuindo da melhor forma possível. Todas as postagens são visíveis para todos os usuários,
+            incluindo a Defesa Civil e outros órgãos responsáveis pela organização de resgates e outras formas de ajuda.
+            Juntos, podemos fazer a diferença e ajudar quem mais precisa.</p>
     </div>
-    
+
     <main>
         <section class="post-section">
             <h2>Poste uma Publicação</h2>
@@ -48,10 +79,12 @@
             <h2>Feed de Publicações</h2>
             <div id="postFeed"></div>
         </section>
+
     </main>
 
 
-<!--Desenvolvido por Gustavo Willians, Diogo Fonseca, Gabriel Gomes, Felipe Fontenele, Leonardo Vinicius e Henrique Mota.-->
+    <!--Desenvolvido por Gustavo Willians, Diogo Fonseca, Gabriel Gomes, Felipe Fontenele, Leonardo Vinicius e Henrique Mota.-->
 
 </body>
+
 </html>

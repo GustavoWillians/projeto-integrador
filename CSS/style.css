@@ -133,3 +133,31 @@ header nav ul li button:hover {
     background-color: #365899;
 }
 
+
+
+.popup {
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+#loginPopup {
+    top: calc(100% + 10px);
+    right: calc(0%);
+}
+
+.user-options {
+    position: relative;
+    display: inline-block;
+}
+
+.user-options .popup {
+    top: calc(100% + 10px);
+    right: calc(0% );
+}
+
+
